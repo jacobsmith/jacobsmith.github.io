@@ -9,6 +9,61 @@ React Apollo seems to be the de facto method of querying GraphQL endpoints from 
 
 Please note that this does not intend to solve every problem you may encounter with Apollo - rather, it reduces some of the options available to you to get you back to code as soon as possible. There will still be times when you need the full API - these tricks are just for reducing boilerplate when that level of customization is not needed.
 
+### TL;DR
+
+React components that abstract away error handling and loading so you can focus
+on the parts that are unique to your component.
+
+Example:
+
+```js
+import React from 'react';
+import Query from 'src/components/query';
+import MovieListEntry from './movieListEntry';
+
+const MoviesList = () => (
+  <Query query={ movies }>
+    {
+      ({ movies }) => movies.map((movie) => {
+        return <MovieListEntry movie={ movie } />;
+      })
+    }
+  </Query>
+);
+
+export default MoviesList;
+```
+
+We can similarly do the same with `Mutation`:
+
+```js
+import React from 'react';
+import Mutation from 'src/components/mutation';
+import AfterMutation from 'src/components/afterMutation';
+
+const LikeMovie = ({ movieId }) => (
+  <Mutation mutation={ likeMovieMutation }>
+    {
+        (likeMovie, data) => {
+            return (
+              <button onClick={ likeMovie({ id: movieId }) }>Like Movie!</button>
+            );
+        }
+    }
+
+    <AfterMutation>
+      Yay! You already liked this movie!    
+    </AfterMutation>
+  </Mutation>
+);
+
+export default LikeMovie;
+```
+
+Interested in what it takes to make these things possible? Keep reading!
+
+## Building these components
+
 To begin, we will create our own Query component:
 
 ```js
@@ -81,7 +136,7 @@ import MovieListEntry from './movieListEntry';
 
 const MoviesList = () => (
   <Query query={ movies }>
-    { 
+    {
       ({ movies }) => movies.map((movie) => {
         return <MovieListEntry movie={ movie } />;
       })
@@ -92,7 +147,7 @@ const MoviesList = () => (
 export default MoviesList;
 ```
 
-
+## Mutation
 
 We can also do a similar thing with the Mutation component:
 
