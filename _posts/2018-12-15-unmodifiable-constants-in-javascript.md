@@ -4,7 +4,7 @@ title: Unmodifiable Constants in JavaScript
 date: 2018-12-15 10:43 -0500
 ---
 
-TL;DR: https://www.npmjs.com/package/enforce-constants lets you make sure your objects raise an error if you access a key that has not been defined.
+TL;DR: [https://www.npmjs.com/package/enforce-constants](https://www.npmjs.com/package/enforce-constants) lets you make sure your objects raise an error if you access a key that has not been defined.
 
 ---
 
@@ -63,4 +63,4 @@ If you're familiar with the JavaScript Proxy object, this is a very straightforw
 
 The NPM module has a few more additions in the `get` code that allow it to be passed successfully to `console.log`. Node uses some custom symbol definitions to know what to print (i.e., why a function is type `function`, object is type `Object object`, etc.). Because we are intercepting _all_ calls to the object, we have to manually handle those. However, it does give us the ability to customize what is printed to the console, hopefully providing develoeprs with a bit more context around the object, where it's being used, and its original intent.
 
-Feel free to check out the code at https://github.com/jacobsmith/enforce-constants and offer any suggestions or issues there!
+Feel free to check out the code at [https://github.com/jacobsmith/enforce-constants](https://github.com/jacobsmith/enforce-constants) and offer any suggestions or issues there!
